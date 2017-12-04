@@ -1,0 +1,35 @@
+---
+title: "pm2,5_model"
+author: "Marco"
+date: "2017年12月4日"
+output: html_document
+---
+
+#数据探索
+  - 总体分布
+  - 缺失值分析
+  - 指标相关性分析
+  - 建立模型
+
+# 数据分布上可以知道，无论是训练数据还是测试数据都存在缺失值，故需对数据分开处理
+  ##第一部分，不含缺失值数据
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(VIM)
+```
+
+# 总体分布
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12,fig.height=10}
+setwd("D:/R_PROJECT/git_program/compete_item")
+df <- read.csv('train1.csv',header = T,sep=',')
+df$No <- NULL
+summary(df) 
+out_num <- as.data.frame(apply(df,2,function(x) sum(is.na(x)))) # 缺失值统计
+aggr(df,prop=F,numbers=T,gap=5)
+aggr(df,prop=T,numbers=T)
+
+```
+
